@@ -16,16 +16,23 @@ public class Neighbour {
     /** Avatar */
     private String avatarUrl;
 
-    /**
-     * Constructor
-     * @param id
-     * @param name
-     * @param avatarUrl
-     */
-    public Neighbour(Integer id, String name, String avatarUrl) {
+    private String homeAddress;
+
+    private String phoneNumber;
+
+    private String webAddress;
+
+    private String description;
+
+
+    public Neighbour(Integer id, String name, String avatarUrl, String homeAddress, String phoneNumber, String webAddress, String description) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
+        this.homeAddress = homeAddress;
+        this.phoneNumber = phoneNumber;
+        this.webAddress = webAddress;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -44,13 +51,9 @@ public class Neighbour {
         this.name = name;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
+    public String getAvatarUrl() { return avatarUrl; }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
 
     @Override
     public boolean equals(Object o) {
