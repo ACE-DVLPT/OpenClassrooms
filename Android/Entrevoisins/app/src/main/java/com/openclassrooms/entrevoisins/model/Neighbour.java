@@ -55,6 +55,22 @@ public class Neighbour {
 
     public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
 
+    public String getHomeAddress() { return homeAddress; }
+
+    public void setHomeAddress(String homeAddress) { this.homeAddress = homeAddress; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getWebAddress() { return webAddress; }
+
+    public void setWebAddress(String webAddress) { this.webAddress = webAddress; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
