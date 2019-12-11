@@ -16,15 +16,28 @@ public class Neighbour {
     /** Avatar */
     private String avatarUrl;
 
+    /** Home address of the user */
     private String homeAddress;
 
+    /** Phone number of the user */
     private String phoneNumber;
 
+    /** Web address of the user */
     private String webAddress;
 
+    /** Description of the user */
     private String description;
 
-
+    /**
+     *
+     * @param id
+     * @param name
+     * @param avatarUrl
+     * @param homeAddress
+     * @param phoneNumber
+     * @param webAddress
+     * @param description
+     */
     public Neighbour(Integer id, String name, String avatarUrl, String homeAddress, String phoneNumber, String webAddress, String description) {
         this.id = id;
         this.name = name;
