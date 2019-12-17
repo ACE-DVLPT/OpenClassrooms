@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.AddNeighbourToFavoriteEvent;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -40,7 +39,7 @@ public class NeighbourDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_neighbour_detail, container, false);
+        return inflater.inflate(R.layout.activity_neighbour_detail, container, false);
     }
 
     /**
