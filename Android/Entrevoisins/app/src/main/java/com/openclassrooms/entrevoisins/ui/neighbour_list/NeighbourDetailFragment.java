@@ -1,7 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,21 +7,34 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.events.AddNeighbourToFavoriteEvent;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NeighbourDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
+import org.greenrobot.eventbus.Subscribe;
+
 public class NeighbourDetailFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    private NeighbourApiService mApiService;
 
     public NeighbourDetailFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Create and return a new instance
+     * @return @{@link NeighbourFragment}
+     */
+    public static NeighbourDetailFragment newInstance() {
+        NeighbourDetailFragment fragment = new NeighbourDetailFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        mApiService = DI.getNeighbourApiService();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,33 +43,13 @@ public class NeighbourDetailFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_neighbour_detail, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    /**
+     * Fired if the user clicks on a delete button
+     * @param event
+     */
+    @Subscribe
+    public void onAddNeighbourToFavorite(AddNeighbourToFavoriteEvent event) {
+        mApiService.deleteNeighbour(event.neighbour);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

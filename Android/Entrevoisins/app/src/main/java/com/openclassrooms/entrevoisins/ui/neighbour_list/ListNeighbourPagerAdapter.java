@@ -1,16 +1,12 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
-
-    List<Fragment> fragmentList = new ArrayList<>();
-    List<String> fragmentTitles = new ArrayList<>();
 
     public ListNeighbourPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -23,13 +19,15 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        return NeighbourFragment.newInstance();
+        switch(position){
+            case 0 :
+                return NeighbourFragment.newInstance();
+            case 1 :
+                return FavoriteNeighbourFragment.newInstance();
+                default:
+                    return null;
+        }
     }
-
-//    @Override
-//    public Fragment getItem(int position) {
-//        return fragmentList.get(position);
-//    }
 
     /**
      * get the number of pages
@@ -37,29 +35,9 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
-//
-//    @Override
-//    public int getCount() {
-//        return fragmentList.size();
-//    }
-//
-//    @Override
-//    public int getItemPosition(Object object) {
-//        // POSITION_NONE makes it possible to reload the PagerAdapter
-//        return POSITION_NONE;
-//    }
-//
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//        return fragmentTitles.get(position);
-//    }
-//
-//    public void addFragment(Fragment fragment, String name) {
-//        fragmentList.add(fragment);
-//        fragmentTitles.add(name);
-//    }
+
 }
 
 
