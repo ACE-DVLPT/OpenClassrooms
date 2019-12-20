@@ -1,12 +1,18 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
+
+    List<NeighbourFragment> mFragmentList = new ArrayList<>();
+    List<String> mFragmentTitles = new ArrayList<>();
 
     public ListNeighbourPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -19,14 +25,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        switch(position){
-            case 0 :
-                return NeighbourFragment.newInstance();
-            case 1 :
-                return FavoriteNeighbourFragment.newInstance();
-                default:
-                    return null;
-        }
+        return mFragmentList.get(position);
     }
 
     /**
@@ -35,9 +34,20 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return 2;
+        return mFragmentList.size();
     }
 
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitles.get(position);
+    }
+
+
+    public void AddFragment(NeighbourFragment fragment, String title) {
+        mFragmentList.add(fragment);
+        mFragmentTitles.add(title);
+    }
 }
 
 

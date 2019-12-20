@@ -23,16 +23,8 @@ public abstract class DummyNeighbourGenerator {
             new Neighbour(12, "Ludovic", "http://i.pravatar.cc/150?u=a042581f3e39026702d","","","","")
     );
 
-    public static List<Neighbour> FAVORITE_NEIGHBOURS = Arrays.asList(
-            new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d","Saint pierre du mont à 5km","+33 6 86 57 90 14","www.facebook.fr/caroline","Bonjour ! Je soouhaiterais faire de la marche nordique/n Pas initiée, je cherche une ou plusieurs personnes susceptibles de m'accompagner ! J'aime les jeux de cartes tels que la belote et le tarot...")
-    );
-
     static List<Neighbour> generateNeighbours() {
         return new ArrayList<>(DUMMY_NEIGHBOURS);
-    }
-
-    static List<Neighbour> getFavoriteNeighbours() {
-        return new ArrayList<>(FAVORITE_NEIGHBOURS);
     }
 
 }

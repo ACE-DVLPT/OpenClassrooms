@@ -7,11 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListNeighbourActivity extends AppCompatActivity {
+
+    NeighbourFragment mFragmentGeneral;
+    NeighbourFragment mFragmentFavoris;
+
+    List<Neighbour> listGeneral = new ArrayList<>();
+    List<Neighbour> listFavoris = new ArrayList<>();
 
     // UI Components
     @BindView(R.id.tabs)
@@ -34,8 +44,15 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
     }
 
-
+    private void setupViewPager() {
+        mFragmentGeneral = NeighbourFragment.newInstance(listGeneral);
+        mFragmentFavoris = NeighbourFragment.newInstance(listFavoris);
+        ListNeighbourPagerAdapter viewPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.AddFragment(mFragmentGeneral, "All neighbors");
+        viewPagerAdapter.AddFragment(mFragmentFavoris, "Favorite neighbors");
+        mViewPager.setAdapter(viewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
 }

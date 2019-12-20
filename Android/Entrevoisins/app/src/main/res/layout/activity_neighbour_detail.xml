@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundDetailFragment"
-    tools:context=".ui.neighbour_list.NeighbourDetailFragment">
+    tools:context=".ui.neighbour_list.NeighbourDetailActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/linearLayoutTop"
