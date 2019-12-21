@@ -46,6 +46,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
+
     private void setupViewPager() {
         mFragmentGeneral = NeighbourFragment.newInstance(listGeneral);
         mFragmentFavoris = NeighbourFragment.newInstance(listFavoris);
@@ -55,4 +56,5 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mViewPager.setAdapter(viewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
+
 }

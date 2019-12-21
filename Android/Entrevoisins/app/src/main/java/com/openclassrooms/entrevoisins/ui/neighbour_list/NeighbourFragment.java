@@ -34,6 +34,11 @@ public class NeighbourFragment extends Fragment {
      */
     public static NeighbourFragment newInstance() {
         NeighbourFragment fragment = new NeighbourFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(args);
+
         return fragment;
     }
 
