@@ -17,12 +17,6 @@ import butterknife.ButterKnife;
 
 public class ListNeighbourActivity extends AppCompatActivity {
 
-    NeighbourFragment mFragmentGeneral;
-    NeighbourFragment mFragmentFavoris;
-
-    List<Neighbour> listGeneral = new ArrayList<>();
-    List<Neighbour> listFavoris = new ArrayList<>();
-
     // UI Components
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
@@ -33,28 +27,30 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
+    ArrayList<Neighbour> generalList = new ArrayList<>();
+    ArrayList<Neighbour> favoriteList = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_neighbour);
         ButterKnife.bind(this);
-
-        setSupportActionBar(mToolbar);
         mPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
+
+        NeighbourFragment fragmentGeneral = NeighbourFragment.newInstance(generalList);
+        NeighbourFragment fragmentFavorites = NeighbourFragment.newInstance(favoriteList);
+
+        mPagerAdapter.AddFragment(fragmentGeneral,"my neighbours");
+        mPagerAdapter.AddFragment(fragmentFavorites, "favorites");
+
         mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-    }
-
-
-    private void setupViewPager() {
-        mFragmentGeneral = NeighbourFragment.newInstance(listGeneral);
-        mFragmentFavoris = NeighbourFragment.newInstance(listFavoris);
-        ListNeighbourPagerAdapter viewPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.AddFragment(mFragmentGeneral, "All neighbors");
-        viewPagerAdapter.AddFragment(mFragmentFavoris, "Favorite neighbors");
-        mViewPager.setAdapter(viewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
 
+//        setSupportActionBar(mToolbar);
+//        mPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
+//        mViewPager.setAdapter(mPagerAdapter);
+//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+//        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    }
 }

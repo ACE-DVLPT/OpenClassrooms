@@ -11,18 +11,34 @@ import java.util.List;
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
-    List<NeighbourFragment> mFragmentList = new ArrayList<>();
-    List<String> mFragmentTitles = new ArrayList<>();
+    List<Fragment> mFragmentList = new ArrayList<>();
+    List<String> mFragmentTitle = new ArrayList<>();
 
-    public ListNeighbourPagerAdapter(FragmentManager fragmentManager) {
-        super(fragmentManager);
+    public ListNeighbourPagerAdapter(FragmentManager fm) {
+        super(fm);
     }
 
-    /**
-     * getItem is called to instantiate the fragment for the given page.
-     * @param position
-     * @return
-     */
+//    /**
+//     * getItem is called to instantiate the fragment for the given page.
+//     *
+//     * @param position
+//     * @return
+//     */
+//    @Override
+//    public Fragment getItem(int position) {
+//        return NeighbourFragment.newInstance();
+//    }
+//
+//    /**
+//     * get the number of pages
+//     *
+//     * @return
+//     */
+//    @Override
+//    public int getCount() {
+//        return 1;
+//    }
+
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
@@ -30,6 +46,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * get the number of pages
+     *
      * @return
      */
     @Override
@@ -40,16 +57,11 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFragmentTitles.get(position);
+        return mFragmentTitle.get(position);
     }
 
-
-    public void AddFragment(NeighbourFragment fragment, String title) {
+    public void AddFragment (Fragment fragment, String title){
         mFragmentList.add(fragment);
-        mFragmentTitles.add(title);
+        mFragmentTitle.add(title);
     }
 }
-
-
-
-

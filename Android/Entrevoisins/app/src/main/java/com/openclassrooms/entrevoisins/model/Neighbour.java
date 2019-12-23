@@ -16,36 +16,16 @@ public class Neighbour {
     /** Avatar */
     private String avatarUrl;
 
-    /** Home address of the user */
-    private String homeAddress;
-
-    /** Phone number of the user */
-    private String phoneNumber;
-
-    /** Web address of the user */
-    private String webAddress;
-
-    /** Description of the user */
-    private String description;
-
     /**
-     *
+     * Constructor
      * @param id
      * @param name
      * @param avatarUrl
-     * @param homeAddress
-     * @param phoneNumber
-     * @param webAddress
-     * @param description
      */
-    public Neighbour(Integer id, String name, String avatarUrl, String homeAddress, String phoneNumber, String webAddress, String description) {
+    public Neighbour(Integer id, String name, String avatarUrl) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
-        this.homeAddress = homeAddress;
-        this.phoneNumber = phoneNumber;
-        this.webAddress = webAddress;
-        this.description = description;
     }
 
     public Integer getId() {
@@ -64,25 +44,13 @@ public class Neighbour {
         this.name = name;
     }
 
-    public String getAvatarUrl() { return avatarUrl; }
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
-    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
-
-    public String getHomeAddress() { return homeAddress; }
-
-    public void setHomeAddress(String homeAddress) { this.homeAddress = homeAddress; }
-
-    public String getPhoneNumber() { return phoneNumber; }
-
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-
-    public String getWebAddress() { return webAddress; }
-
-    public void setWebAddress(String webAddress) { this.webAddress = webAddress; }
-
-    public String getDescription() { return description; }
-
-    public void setDescription(String description) { this.description = description; }
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     @Override
     public boolean equals(Object o) {
