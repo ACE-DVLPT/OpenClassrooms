@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import java.lang.reflect.Array;
@@ -38,10 +39,9 @@ public class ListNeighbourActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
 
-        generalList = new ArrayList<>();
+        generalList = new ArrayList<>(DI.getNeighbourApiService().getNeighbours());
         favoriteList = new ArrayList<>();
         favoriteList.add(new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d"));
-
 
         NeighbourFragment fragmentGeneral = NeighbourFragment.newInstance(generalList);
         NeighbourFragment fragmentFavorites = NeighbourFragment.newInstance(favoriteList);

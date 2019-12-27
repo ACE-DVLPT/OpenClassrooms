@@ -1,6 +1,8 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.ShowNeighbourDetailEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -26,6 +29,7 @@ import java.util.List;
 public class NeighbourFragment extends Fragment {
 
     private static final String KEY = "key";
+    public static final String KEY_NEIGHBOUR_DETAIL = "KEY_NEIGHBOUR_DETAIL";
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -39,7 +43,7 @@ public class NeighbourFragment extends Fragment {
     public static NeighbourFragment newInstance(ArrayList<Neighbour> listToCall) {
         NeighbourFragment fragment = new NeighbourFragment();
         Bundle args = new Bundle();
-//        args.putSerializable(KEY, listToCall);
+        args.putSerializable(KEY, listToCall);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,7 +63,7 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
+        mNeighbours = (ArrayList<Neighbour>) getArguments().getSerializable(KEY);
         initList();
         return view;
     }
@@ -68,7 +72,6 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
@@ -92,5 +95,12 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
+    }
+
+    @Subscribe
+    public void showNeighbourDetail (ShowNeighbourDetailEvent event){
+       Intent intent = new Intent(getActivity(),NeighbourDetailActivity.class);
+       intent.putExtra(KEY_NEIGHBOUR_DETAIL,event.neighbour);
+       getActivity().startActivity(intent);
     }
 }
