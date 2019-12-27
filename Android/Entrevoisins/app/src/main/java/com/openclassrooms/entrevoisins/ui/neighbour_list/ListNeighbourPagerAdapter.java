@@ -18,27 +18,6 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-//    /**
-//     * getItem is called to instantiate the fragment for the given page.
-//     *
-//     * @param position
-//     * @return
-//     */
-//    @Override
-//    public Fragment getItem(int position) {
-//        return NeighbourFragment.newInstance();
-//    }
-//
-//    /**
-//     * get the number of pages
-//     *
-//     * @return
-//     */
-//    @Override
-//    public int getCount() {
-//        return 1;
-//    }
-
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
@@ -60,8 +39,31 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         return mFragmentTitle.get(position);
     }
 
+
+
     public void AddFragment (Fragment fragment, String title){
         mFragmentList.add(fragment);
         mFragmentTitle.add(title);
     }
+
+//    /**
+//     * getItem is called to instantiate the fragment for the given page.
+//     *
+//     * @param position
+//     * @return
+//     */
+//    @Override
+//    public Fragment getItem(int position) {
+//        return NeighbourFragment.newInstance();
+//    }
+//
+//    /**
+//     * get the number of pages
+//     *
+//     * @return
+//     */
+//    @Override
+//    public int getCount() {
+//        return 1;
+//    }
 }

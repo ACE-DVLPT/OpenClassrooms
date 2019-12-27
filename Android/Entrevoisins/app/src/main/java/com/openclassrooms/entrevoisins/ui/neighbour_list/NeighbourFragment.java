@@ -39,7 +39,7 @@ public class NeighbourFragment extends Fragment {
     public static NeighbourFragment newInstance(ArrayList<Neighbour> listToCall) {
         NeighbourFragment fragment = new NeighbourFragment();
         Bundle args = new Bundle();
-        args.putSerializable(KEY, listToCall);
+//        args.putSerializable(KEY, listToCall);
         fragment.setArguments(args);
         return fragment;
     }
