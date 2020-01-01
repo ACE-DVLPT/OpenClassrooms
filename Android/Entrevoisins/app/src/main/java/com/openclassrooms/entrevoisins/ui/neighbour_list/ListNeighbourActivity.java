@@ -10,9 +10,7 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,21 +39,15 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
         generalList = new ArrayList<>(DI.getNeighbourApiService().getNeighbours());
         favoriteList = new ArrayList<>();
-        favoriteList.add(new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d"));
+        favoriteList.add(new Neighbour(1, true , "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d","","","",""));
 
-        NeighbourFragment fragmentGeneral = NeighbourFragment.newInstance(generalList);
-        NeighbourFragment fragmentFavorites = NeighbourFragment.newInstance(favoriteList);
+        ListNeighbourFragment fragmentGeneral = ListNeighbourFragment.newInstance(generalList);
+        ListNeighbourFragment fragmentFavorites = ListNeighbourFragment.newInstance(favoriteList);
 
         mPagerAdapter.AddFragment(fragmentGeneral,"my neighbours");
         mPagerAdapter.AddFragment(fragmentFavorites, "favorites");
 
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-
-//        setSupportActionBar(mToolbar);
-//        mPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
-//        mViewPager.setAdapter(mPagerAdapter);
-//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-//        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 }

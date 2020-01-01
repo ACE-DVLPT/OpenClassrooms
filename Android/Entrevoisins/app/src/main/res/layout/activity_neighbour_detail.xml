@@ -14,28 +14,39 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/activityNeighbourDetailAvatar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             tools:ignore="MissingConstraints"
             tools:src="@tools:sample/avatars" />
 
         <TextView
+            android:id="@+id/activityNeighbourDetailTxtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/fab_margin"
-            android:text="Caroline"
+            android:text="No name"
             android:textSize="30dp"
             android:textStyle="bold"
             android:textColor="#FFF"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <Button
+            android:id="@+id/activityNeighbourDetailBtnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_arrow_back_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/activityNeighbourDetailBtnFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -61,11 +72,11 @@
         >
 
         <TextView
-            android:id="@+id/textViewName"
+            android:id="@+id/activityNeighbourDetailTxtSmallTitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/detail_margin_text"
-            android:text="Caroline"
+            android:text="No name"
             android:textSize="@dimen/detail_size_text_title"
             android:textStyle="bold" />
 
@@ -74,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorHorizontalLine"
-            app:layout_constraintTop_toBottomOf="@id/textViewName"
+            app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle1"
             />
 
         <ImageView
@@ -83,13 +94,13 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_room_24px"
             android:padding="@dimen/detail_margin_text"
-            app:layout_constraintTop_toBottomOf="@id/textViewName" />
+            app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle1" />
 
         <TextView
-            android:id="@+id/textViewHomeAddress"
+            android:id="@+id/activityNeighbourDetailTxtHomeAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saint Pierre du mont à 5km"
+            android:text="No address"
             app:layout_constraintStart_toEndOf="@id/icRoom"
             app:layout_constraintTop_toTopOf="@id/icRoom"
             app:layout_constraintBottom_toBottomOf="@+id/icRoom"
@@ -104,10 +115,10 @@
             app:layout_constraintTop_toBottomOf="@id/icRoom" />
 
         <TextView
-            android:id="@+id/textViewPhoneNumber"
+            android:id="@+id/activityNeighbourDetailTxtPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+33 6 86 57 90 14 "
+            android:text="No phone number"
             app:layout_constraintStart_toEndOf="@id/icCall"
             app:layout_constraintTop_toTopOf="@id/icCall"
             app:layout_constraintBottom_toBottomOf="@+id/icCall" />
@@ -121,10 +132,10 @@
             app:layout_constraintTop_toBottomOf="@id/icCall" />
 
         <TextView
-            android:id="@+id/textViewWebAddress"
+            android:id="@+id/activityNeighbourDetailTxtWebAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="www.facebook.fr/caroline"
+            android:text="No web address"
             app:layout_constraintStart_toEndOf="@id/icLanguage"
             app:layout_constraintTop_toTopOf="@id/icLanguage"
             app:layout_constraintBottom_toBottomOf="@id/icLanguage" />
@@ -139,7 +150,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutContact">
 
         <TextView
-            android:id="@+id/textViewDescriptionTitle"
+            android:id="@+id/activityNeighbourDetailTxtSmallTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -154,11 +165,11 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorHorizontalLine"
-            app:layout_constraintTop_toBottomOf="@id/textViewDescriptionTitle"
+            app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle2"
             />
 
         <TextView
-            android:id="@+id/textViewDescription"
+            android:id="@+id/activityNeighbourDetailTxtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/detail_margin_text"

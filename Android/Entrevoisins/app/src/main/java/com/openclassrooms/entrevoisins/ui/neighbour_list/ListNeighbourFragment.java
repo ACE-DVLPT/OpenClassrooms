@@ -1,6 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NeighbourFragment extends Fragment {
+public class ListNeighbourFragment extends Fragment {
 
-    private static final String KEY = "key";
+    private static final String KEY_NEIGHBOUR_LIST = "KEY_NEIGHBOUR_LIST";
     public static final String KEY_NEIGHBOUR_DETAIL = "KEY_NEIGHBOUR_DETAIL";
 
     private NeighbourApiService mApiService;
@@ -38,12 +37,12 @@ public class NeighbourFragment extends Fragment {
 
     /**
      * Create and return a new instance
-     * @return @{@link NeighbourFragment}
+     * @return @{@link ListNeighbourFragment}
      */
-    public static NeighbourFragment newInstance(ArrayList<Neighbour> listToCall) {
-        NeighbourFragment fragment = new NeighbourFragment();
+    public static ListNeighbourFragment newInstance(ArrayList<Neighbour> listToCall) {
+        ListNeighbourFragment fragment = new ListNeighbourFragment();
         Bundle args = new Bundle();
-        args.putSerializable(KEY, listToCall);
+        args.putSerializable(KEY_NEIGHBOUR_LIST, listToCall);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +62,7 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mNeighbours = (ArrayList<Neighbour>) getArguments().getSerializable(KEY);
+        mNeighbours = (ArrayList<Neighbour>) getArguments().getSerializable(KEY_NEIGHBOUR_LIST);
         initList();
         return view;
     }
@@ -94,11 +93,12 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
+        mNeighbours.remove(event.neighbour);
         initList();
     }
 
     @Subscribe
-    public void showNeighbourDetail (ShowNeighbourDetailEvent event){
+    public void onShowNeighbourDetail(ShowNeighbourDetailEvent event){
        Intent intent = new Intent(getActivity(),NeighbourDetailActivity.class);
        intent.putExtra(KEY_NEIGHBOUR_DETAIL,event.neighbour);
        getActivity().startActivity(intent);
