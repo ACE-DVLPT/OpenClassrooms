@@ -51,7 +51,8 @@ public class NeighbourDetailActivity extends AppCompatActivity {
         mTextViewPhoneNumber.setText(mNeighbour.getPhoneNumber());
         mTextViewWebAddress.setText(mNeighbour.getWebAddress());
         mTextViewDescription.setText(mNeighbour.getDescription());
-    }
 
+        int test = mNeighbour.getFavorite() ? R.drawable.ic_star_white_24dp : R.drawable.ic_star_border_white_24dp;
+    }
 
 }
