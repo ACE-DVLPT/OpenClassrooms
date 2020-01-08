@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ public class ListNeighbourFragment extends Fragment {
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-    private MyNeighbourRecyclerViewAdapter mRecyclerViexAdapter;
+    private MyNeighbourRecyclerViewAdapter mRecyclerViewAdapter;
 
 
     /**
@@ -72,8 +73,8 @@ public class ListNeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mRecyclerViexAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
-        mRecyclerView.setAdapter(mRecyclerViexAdapter);
+        mRecyclerViewAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
     @Override
@@ -103,6 +104,11 @@ public class ListNeighbourFragment extends Fragment {
     public void onShowNeighbourDetail(ShowNeighbourDetailEvent event){
        Intent intent = new Intent(getActivity(),NeighbourDetailActivity.class);
        intent.putExtra(KEY_NEIGHBOUR_DETAIL,event.neighbour);
-       getActivity().startActivity(intent);
+       getActivity().startActivityForResult(intent,1);
+    }
+
+    public void setNeighbours(List<Neighbour> neighbours) {
+        mNeighbours = neighbours;
+        initList();
     }
 }

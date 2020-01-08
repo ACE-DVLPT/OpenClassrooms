@@ -1,8 +1,13 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,12 +36,19 @@ public class NeighbourDetailActivity extends AppCompatActivity {
     TextView mTextViewWebAddress;
     @BindView(R.id.activityNeighbourDetailTxtDescription)
     TextView mTextViewDescription;
+    @BindView(R.id.activityNeighbourDetailBtnBack)
+    Button mBtnBack;
+    @BindView(R.id.activityNeighbourDetailBtnFavorite)
+    FloatingActionButton mBtnFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_detail);
         ButterKnife.bind(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Intent intent = getIntent();
         mNeighbour = (Neighbour) intent.getSerializableExtra("KEY_NEIGHBOUR_DETAIL");
@@ -52,7 +64,39 @@ public class NeighbourDetailActivity extends AppCompatActivity {
         mTextViewWebAddress.setText(mNeighbour.getWebAddress());
         mTextViewDescription.setText(mNeighbour.getDescription());
 
-        int test = mNeighbour.getFavorite() ? R.drawable.ic_star_white_24dp : R.drawable.ic_star_border_white_24dp;
+        setIcon();
+
+        Log.e("DEBUG", "OPENED");
+
+        mBtnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mNeighbour.getFavorite()) {
+                    mNeighbour.setFavorite(false);
+                    setIcon();
+                }else{
+                    mNeighbour.setFavorite(true);
+                    setIcon();
+                }
+            }
+        });
+
+        mBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
+    public void onBackPressed(){
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("RESULT",mNeighbour);
+        setResult(NeighbourDetailActivity.RESULT_OK,returnIntent);
+        finish();
+    }
+
+    private void setIcon (){
+        mBtnFavorite.setImageResource(mNeighbour.getFavorite() ? R.drawable.ic_star_white_24dp : R.drawable.ic_star_border_white_24dp);
+    }
 }
