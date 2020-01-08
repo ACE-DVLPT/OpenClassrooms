@@ -89,6 +89,8 @@ public class NeighbourDetailActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
     public void onBackPressed(){
         Intent returnIntent = new Intent();
         returnIntent.putExtra("RESULT",mNeighbour);

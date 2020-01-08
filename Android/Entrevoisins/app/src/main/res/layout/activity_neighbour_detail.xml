@@ -7,176 +7,201 @@
     android:background="@color/colorBackgroundDetailFragment"
     tools:context=".ui.neighbour_list.NeighbourDetailActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayoutTop"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/activityNeighbourDetailAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            tools:ignore="MissingConstraints"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/fab_margin"
-            android:text="No name"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="#FFF"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <Button
-            android:id="@+id/activityNeighbourDetailBtnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_arrow_back_black_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activityNeighbourDetailBtnFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutContact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTop"
-        android:src="@drawable/ic_star_border_white_24dp"
-        android:backgroundTint="@color/colorBackgroundDetailFragment"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:elevation="10dp"
-        app:borderWidth="0dp"
-        />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayoutContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:elevation="5dp"
-        android:background="@drawable/rounded_corners"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTop"
-        tools:ignore="MissingConstraints"
+        android:layout_height="match_parent"
         >
 
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtSmallTitle1"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/detail_margin_text"
-            android:text="No name"
-            android:textSize="@dimen/detail_size_text_title"
-            android:textStyle="bold" />
+            >
 
-        <View
-            android:id="@+id/horizontalLineContact"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorHorizontalLine"
-            app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle1"
-            />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayoutTop"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                tools:ignore="MissingConstraints">
 
-        <ImageView
-            android:id="@+id/icRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_room_24px"
-            android:padding="@dimen/detail_margin_text"
-            app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle1" />
+                <ImageView
+                    android:id="@+id/activityNeighbourDetailAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    tools:ignore="MissingConstraints"
+                    tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtHomeAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No address"
-            app:layout_constraintStart_toEndOf="@id/icRoom"
-            app:layout_constraintTop_toTopOf="@id/icRoom"
-            app:layout_constraintBottom_toBottomOf="@+id/icRoom"
-            />
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/fab_margin"
+                    android:text="No name"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:textColor="#FFF"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ImageView
-            android:id="@+id/icCall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_call_24px"
-            android:padding="@dimen/detail_margin_text"
-            app:layout_constraintTop_toBottomOf="@id/icRoom" />
+                <Button
+                    android:id="@+id/activityNeighbourDetailBtnBack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/ic_arrow_back_black_24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No phone number"
-            app:layout_constraintStart_toEndOf="@id/icCall"
-            app:layout_constraintTop_toTopOf="@id/icCall"
-            app:layout_constraintBottom_toBottomOf="@+id/icCall" />
+            </android.support.constraint.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/icLanguage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_language_24px"
-            android:padding="@dimen/detail_margin_text"
-            app:layout_constraintTop_toBottomOf="@id/icCall" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/activityNeighbourDetailBtnFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutContact"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutTop"
+                android:src="@drawable/ic_star_border_white_24dp"
+                android:backgroundTint="@color/colorBackgroundDetailFragment"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:elevation="10dp"
+                app:borderWidth="0dp"
+                />
 
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtWebAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No web address"
-            app:layout_constraintStart_toEndOf="@id/icLanguage"
-            app:layout_constraintTop_toTopOf="@id/icLanguage"
-            app:layout_constraintBottom_toBottomOf="@id/icLanguage" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayoutContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:elevation="5dp"
+                android:background="@drawable/rounded_corners"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutTop"
+                tools:ignore="MissingConstraints"
+                >
 
-    </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtSmallTitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/detail_margin_text"
+                    android:text="No name"
+                    android:textSize="@dimen/detail_size_text_title"
+                    android:textStyle="bold" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:elevation="5dp"
-        android:background="@drawable/rounded_corners"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutContact">
+                <View
+                    android:id="@+id/horizontalLineContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHorizontalLine"
+                    app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle1"
+                    />
 
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtSmallTitle2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/detail_margin_text"
-            android:textSize="@dimen/detail_size_text_title"
-            android:textStyle="bold"
-            android:text="A propos de moi"
-            tools:ignore="MissingConstraints" />
+                <ImageView
+                    android:id="@+id/icRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_room_24px"
+                    android:padding="@dimen/detail_margin_text"
+                    app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle1" />
 
-        <View
-            android:id="@+id/horizontalLineDescription"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorHorizontalLine"
-            app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle2"
-            />
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtHomeAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No address"
+                    app:layout_constraintStart_toEndOf="@id/icRoom"
+                    app:layout_constraintTop_toTopOf="@id/icRoom"
+                    app:layout_constraintBottom_toBottomOf="@+id/icRoom"
+                    />
 
-        <TextView
-            android:id="@+id/activityNeighbourDetailTxtDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/detail_margin_text"
-            android:text="No detail"
-            app:layout_constraintTop_toBottomOf="@id/horizontalLineDescription"
-            tools:ignore="MissingConstraints" />
+                <ImageView
+                    android:id="@+id/icCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_call_24px"
+                    android:padding="@dimen/detail_margin_text"
+                    app:layout_constraintTop_toBottomOf="@id/icRoom" />
 
-    </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No phone number"
+                    app:layout_constraintStart_toEndOf="@id/icCall"
+                    app:layout_constraintTop_toTopOf="@id/icCall"
+                    app:layout_constraintBottom_toBottomOf="@+id/icCall" />
+
+                <ImageView
+                    android:id="@+id/icLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_language_24px"
+                    android:padding="@dimen/detail_margin_text"
+                    app:layout_constraintTop_toBottomOf="@id/icCall" />
+
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtWebAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No web address"
+                    app:layout_constraintStart_toEndOf="@id/icLanguage"
+                    app:layout_constraintTop_toTopOf="@id/icLanguage"
+                    app:layout_constraintBottom_toBottomOf="@id/icLanguage" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayoutDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:elevation="5dp"
+                android:background="@drawable/rounded_corners"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutContact"
+                >
+
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtSmallTitle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/detail_margin_text"
+                    android:textSize="@dimen/detail_size_text_title"
+                    android:textStyle="bold"
+                    android:text="A propos de moi"
+                    tools:ignore="MissingConstraints" />
+
+                <View
+                    android:id="@+id/horizontalLineDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHorizontalLine"
+                    app:layout_constraintTop_toBottomOf="@id/activityNeighbourDetailTxtSmallTitle2"
+                    />
+
+                <TextView
+                    android:id="@+id/activityNeighbourDetailTxtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/detail_margin_text"
+                    android:text="No detail"
+                    app:layout_constraintTop_toBottomOf="@id/horizontalLineDescription"
+                    tools:ignore="MissingConstraints" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:elevation="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutDescription">
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

@@ -81,12 +81,23 @@ public class ListNeighbourFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        Log.e("DEBUG", "REGISTER");
     }
 
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+        Log.e("DEBUG", "UNREGISTER");
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (menuVisible) {
+            EventBus.getDefault().register(this);
+            Log.e("DEBUG", "REGISTER");
+        }
     }
 
     /**
@@ -104,6 +115,7 @@ public class ListNeighbourFragment extends Fragment {
     public void onShowNeighbourDetail(ShowNeighbourDetailEvent event){
        Intent intent = new Intent(getActivity(),NeighbourDetailActivity.class);
        intent.putExtra(KEY_NEIGHBOUR_DETAIL,event.neighbour);
+       Log.e("DEBUG","START");
        getActivity().startActivityForResult(intent,1);
     }
 
