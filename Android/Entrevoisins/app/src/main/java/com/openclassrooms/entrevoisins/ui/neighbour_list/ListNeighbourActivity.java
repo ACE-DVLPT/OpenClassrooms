@@ -2,7 +2,6 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +13,8 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,11 +31,11 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
-    ArrayList<Neighbour> generalList;
-    ArrayList<Neighbour> favoriteList;
+    ArrayList<Neighbour> mGeneralList;
+    ArrayList<Neighbour> mFavoriteList;
 
-    ListNeighbourFragment fragmentGeneral;
-    ListNeighbourFragment fragmentFavorites;
+    ListNeighbourFragment mFragmentGeneral;
+    ListNeighbourFragment mFragmentFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +44,20 @@ public class ListNeighbourActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
 
-        generalList = new ArrayList<>(DI.getNeighbourApiService().getNeighbours());
-        favoriteList = new ArrayList<>();
+        mGeneralList = new ArrayList<>(DI.getNeighbourApiService().getNeighbours());
+        mFavoriteList = new ArrayList<>();
 
-        fragmentGeneral = ListNeighbourFragment.newInstance(generalList);
-        fragmentFavorites = ListNeighbourFragment.newInstance(favoriteList);
+        mFragmentGeneral = ListNeighbourFragment.newInstance(mGeneralList);
+        mFragmentFavorites = ListNeighbourFragment.newInstance(mFavoriteList);
 
-        mPagerAdapter.AddFragment(fragmentGeneral,"my neighbours");
-        mPagerAdapter.AddFragment(fragmentFavorites, "favorites");
+        mPagerAdapter.AddFragment(mFragmentGeneral,"my neighbours");
+        mPagerAdapter.AddFragment(mFragmentFavorites, "favorites");
 
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void manageFavoriteList (Neighbour neighbour) {
+    private void manageFavoriteList (Neighbour neighbour, ArrayList<Neighbour> generalList, ArrayList<Neighbour> favoriteList, ListNeighbourPagerAdapter pagerAdapter) {
 
         int neighbourPosition = generalList.indexOf(neighbour);
 
@@ -71,19 +68,21 @@ public class ListNeighbourActivity extends AppCompatActivity {
                 favoriteList.add(neighbour);
                 generalList.set(neighbourPosition,neighbour);
                 sortNeighbours(favoriteList);
+                pagerAdapter.notifyDataSetChanged();
             }
         } else {
             if (favoriteList.contains(neighbour)){
                 favoriteList.remove(neighbour);
                 generalList.set(neighbourPosition,neighbour);
                 sortNeighbours(favoriteList);
+                pagerAdapter.notifyDataSetChanged();
             } else {
                 // Do nothing
             }
         }
     }
 
-    private void sortNeighbours(ArrayList list){
+    private void sortNeighbours(ArrayList<Neighbour> list){
         Collections.sort(list, new Comparator<Neighbour>() {
             @Override
             public int compare(Neighbour neighbour01, Neighbour neighbour02) {
@@ -98,11 +97,11 @@ public class ListNeighbourActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == NeighbourDetailActivity.RESULT_OK){
                 Neighbour result = (Neighbour) data.getSerializableExtra("RESULT");
-                manageFavoriteList(result);
+                manageFavoriteList(result,mGeneralList,mFavoriteList,mPagerAdapter);
                 Log.e("DEBUG","RESULT");
 
-                fragmentGeneral.setNeighbours(generalList);
-                fragmentFavorites.setNeighbours(favoriteList);
+                mFragmentGeneral.setNeighbours(mGeneralList);
+                mFragmentFavorites.setNeighbours(mFavoriteList);
                 mPagerAdapter.notifyDataSetChanged();
             }
         }

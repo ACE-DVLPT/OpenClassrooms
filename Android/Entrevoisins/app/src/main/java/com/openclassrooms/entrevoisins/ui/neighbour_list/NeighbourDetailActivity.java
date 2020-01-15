@@ -62,7 +62,12 @@ public class NeighbourDetailActivity extends AppCompatActivity {
         mTextViewHomeAddress.setText(mNeighbour.getAddress());
         mTextViewPhoneNumber.setText(mNeighbour.getPhoneNumber());
         mTextViewWebAddress.setText(mNeighbour.getWebAddress());
-        mTextViewDescription.setText(mNeighbour.getDescription());
+
+        if (mNeighbour.getDescription() == "") {
+            mTextViewDescription.setText("Aucune description");
+        }else {
+            mTextViewDescription.setText(mNeighbour.getDescription());
+        }
 
         setIcon();
 
@@ -88,7 +93,6 @@ public class NeighbourDetailActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onBackPressed(){

@@ -35,6 +35,7 @@ public class ListNeighbourFragment extends Fragment {
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
     private MyNeighbourRecyclerViewAdapter mRecyclerViewAdapter;
+    private Boolean mViewCreated = false;
 
 
     /**
@@ -66,6 +67,7 @@ public class ListNeighbourFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mNeighbours = (ArrayList<Neighbour>) getArguments().getSerializable(KEY_NEIGHBOUR_LIST);
         initList();
+        mViewCreated = true;
         return view;
     }
 
@@ -73,30 +75,33 @@ public class ListNeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
+        initNeighbourList();
         mRecyclerViewAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-        Log.e("DEBUG", "REGISTER");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-        Log.e("DEBUG", "UNREGISTER");
+    private void initNeighbourList() {
+        for (int i=0; i<mNeighbours.size(); i++){
+            if (mApiService.getNeighbours().contains(mNeighbours.get(i))){
+                //Do nothing
+            } else {
+                mNeighbours.remove(i);
+            }
+        }
     }
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
+            if (mViewCreated){
+                initList();
+            }
             EventBus.getDefault().register(this);
             Log.e("DEBUG", "REGISTER");
+        }else {
+            EventBus.getDefault().unregister(this);
+            Log.e("DEBUG", "UNREGISTER");
         }
     }
 
@@ -107,7 +112,7 @@ public class ListNeighbourFragment extends Fragment {
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
-        mNeighbours.remove(event.neighbour);
+//        mNeighbours.remove(event.neighbour);
         initList();
     }
 
