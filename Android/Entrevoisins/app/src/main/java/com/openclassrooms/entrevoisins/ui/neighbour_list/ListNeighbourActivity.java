@@ -57,7 +57,13 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void manageFavoriteList (Neighbour neighbour, ArrayList<Neighbour> generalList, ArrayList<Neighbour> favoriteList, ListNeighbourPagerAdapter pagerAdapter) {
+    /**
+     * allows to check if the tested neighbor exists in the list of favorites. If it exists, nothing should happen. If it does not exist, the method should add it to the favorites list.
+     * @param neighbour to check
+     * @param generalList
+     * @param favoriteList
+     */
+    public void manageFavoriteList (Neighbour neighbour, ArrayList<Neighbour> generalList, ArrayList<Neighbour> favoriteList) {
 
         int neighbourPosition = generalList.indexOf(neighbour);
 
@@ -68,14 +74,12 @@ public class ListNeighbourActivity extends AppCompatActivity {
                 favoriteList.add(neighbour);
                 generalList.set(neighbourPosition,neighbour);
                 sortNeighbours(favoriteList);
-                pagerAdapter.notifyDataSetChanged();
             }
         } else {
             if (favoriteList.contains(neighbour)){
                 favoriteList.remove(neighbour);
                 generalList.set(neighbourPosition,neighbour);
                 sortNeighbours(favoriteList);
-                pagerAdapter.notifyDataSetChanged();
             } else {
                 // Do nothing
             }
@@ -97,7 +101,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == NeighbourDetailActivity.RESULT_OK){
                 Neighbour result = (Neighbour) data.getSerializableExtra("RESULT");
-                manageFavoriteList(result,mGeneralList,mFavoriteList,mPagerAdapter);
+                manageFavoriteList(result,mGeneralList,mFavoriteList);
                 Log.e("DEBUG","RESULT");
 
                 mFragmentGeneral.setNeighbours(mGeneralList);
