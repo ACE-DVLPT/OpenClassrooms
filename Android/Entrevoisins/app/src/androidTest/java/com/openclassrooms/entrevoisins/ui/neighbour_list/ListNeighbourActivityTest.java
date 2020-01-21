@@ -27,10 +27,10 @@ public class ListNeighbourActivityTest {
     public void manageFavoriteList() {
 
         mGeneralList = (ArrayList<Neighbour>) service.getNeighbours();
-        Neighbour neighbourTested = mGeneralList.get(0);
+        Neighbour neighbourTested =  mGeneralList.get(0);
 
-        assertEquals(mGeneralList.get(0).getFavorite(),false);
-        assertEquals(neighbourTested.getFavorite(),false);
+        assertFalse(mGeneralList.get(0).getFavorite());
+        assertFalse(neighbourTested.getFavorite());
 
         neighbourTested.setFavorite(true);
 
@@ -38,6 +38,7 @@ public class ListNeighbourActivityTest {
         assertEquals(neighbourTested.getFavorite(),true);
 
 //        assertTrue(mFavoriteList.isEmpty());
+
 
 
     }

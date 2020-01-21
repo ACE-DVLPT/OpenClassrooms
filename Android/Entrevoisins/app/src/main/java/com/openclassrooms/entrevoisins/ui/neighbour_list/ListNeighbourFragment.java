@@ -42,7 +42,7 @@ public class ListNeighbourFragment extends Fragment {
      * Create and return a new instance
      * @return @{@link ListNeighbourFragment}
      */
-    public static ListNeighbourFragment newInstance(ArrayList<Neighbour> listToCall) {
+    public static ListNeighbourFragment newInstance(ArrayList<Neighbour> listToCall, Boolean favorite) {
         ListNeighbourFragment fragment = new ListNeighbourFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_NEIGHBOUR_LIST, listToCall);
@@ -111,8 +111,8 @@ public class ListNeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
 //        mNeighbours.remove(event.neighbour);
+        ((ListNeighbourActivity)getActivity()).
         initList();
     }
 
@@ -125,7 +125,8 @@ public class ListNeighbourFragment extends Fragment {
     }
 
     public void setNeighbours(List<Neighbour> neighbours) {
-        mNeighbours = neighbours;
-        initList();
+        mNeighbours.clear();
+        mNeighbours.addAll(neighbours);
+        mRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

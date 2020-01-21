@@ -57,13 +57,17 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    public void removeNeighbour(){
+
+    }
+
     /**
      * allows to check if the tested neighbor exists in the list of favorites. If it exists, nothing should happen. If it does not exist, the method should add it to the favorites list.
      * @param neighbour to check
      * @param generalList
      * @param favoriteList
      */
-    public void manageFavoriteList (Neighbour neighbour, ArrayList<Neighbour> generalList, ArrayList<Neighbour> favoriteList) {
+    public static void manageFavoriteList (Neighbour neighbour, ArrayList<Neighbour> generalList, ArrayList<Neighbour> favoriteList) {
 
         int neighbourPosition = generalList.indexOf(neighbour);
 
@@ -86,7 +90,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
         }
     }
 
-    private void sortNeighbours(ArrayList<Neighbour> list){
+    public static void sortNeighbours(ArrayList<Neighbour> list){
         Collections.sort(list, new Comparator<Neighbour>() {
             @Override
             public int compare(Neighbour neighbour01, Neighbour neighbour02) {
@@ -106,7 +110,6 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
                 mFragmentGeneral.setNeighbours(mGeneralList);
                 mFragmentFavorites.setNeighbours(mFavoriteList);
-                mPagerAdapter.notifyDataSetChanged();
             }
         }
     }
