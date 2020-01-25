@@ -30,22 +30,25 @@ public class ListNeighbourFragment extends Fragment {
 
     private static final String KEY_NEIGHBOUR_LIST = "KEY_NEIGHBOUR_LIST";
     public static final String KEY_NEIGHBOUR_DETAIL = "KEY_NEIGHBOUR_DETAIL";
+    public static final String KEY_FAVORITE_FRAGMENT = "KEY_FAVORITE_FRAGMENT";
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
     private MyNeighbourRecyclerViewAdapter mRecyclerViewAdapter;
     private Boolean mViewCreated = false;
+    private Boolean mFavoriteFragment;
 
 
     /**
      * Create and return a new instance
      * @return @{@link ListNeighbourFragment}
      */
-    public static ListNeighbourFragment newInstance(ArrayList<Neighbour> listToCall, Boolean favorite) {
+    public static ListNeighbourFragment newInstance(ArrayList<Neighbour> listToCall, Boolean favoriteFragment) {
         ListNeighbourFragment fragment = new ListNeighbourFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_NEIGHBOUR_LIST, listToCall);
+        args.putBoolean(KEY_FAVORITE_FRAGMENT,favoriteFragment);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,6 +69,8 @@ public class ListNeighbourFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mNeighbours = (ArrayList<Neighbour>) getArguments().getSerializable(KEY_NEIGHBOUR_LIST);
+        mFavoriteFragment = getArguments().getBoolean(KEY_FAVORITE_FRAGMENT);
+        initRemoveIcon();
         initList();
         mViewCreated = true;
         return view;
@@ -75,27 +80,24 @@ public class ListNeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        initNeighbourList();
         mRecyclerViewAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
-    private void initNeighbourList() {
-        for (int i=0; i<mNeighbours.size(); i++){
-            if (mApiService.getNeighbours().contains(mNeighbours.get(i))){
-                //Do nothing
-            } else {
-                mNeighbours.remove(i);
-            }
+    private void initRemoveIcon(){
+        if (mFavoriteFragment){
+
+        }else{
+            // Do nothing
         }
     }
+
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
             if (mViewCreated){
-                initList();
             }
             EventBus.getDefault().register(this);
             Log.e("DEBUG", "REGISTER");
@@ -111,9 +113,10 @@ public class ListNeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-//        mNeighbours.remove(event.neighbour);
-        ((ListNeighbourActivity)getActivity()).
-        initList();
+        ((ListNeighbourActivity)getActivity()).mGeneralList.remove(event.neighbour);
+        ((ListNeighbourActivity)getActivity()).mFavoriteList.remove(event.neighbour);
+//        ((ListNeighbourActivity)getActivity()).initFragment();
+        mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Subscribe
@@ -125,8 +128,8 @@ public class ListNeighbourFragment extends Fragment {
     }
 
     public void setNeighbours(List<Neighbour> neighbours) {
-        mNeighbours.clear();
-        mNeighbours.addAll(neighbours);
+//        mNeighbours.clear();
+//        mNeighbours.addAll(neighbours);
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
 }

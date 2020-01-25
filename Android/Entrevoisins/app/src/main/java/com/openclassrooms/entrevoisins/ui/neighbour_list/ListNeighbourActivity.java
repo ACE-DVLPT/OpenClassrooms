@@ -10,7 +10,10 @@ import android.util.Log;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,8 +50,8 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mGeneralList = new ArrayList<>(DI.getNeighbourApiService().getNeighbours());
         mFavoriteList = new ArrayList<>();
 
-        mFragmentGeneral = ListNeighbourFragment.newInstance(mGeneralList);
-        mFragmentFavorites = ListNeighbourFragment.newInstance(mFavoriteList);
+        mFragmentGeneral = ListNeighbourFragment.newInstance(mGeneralList,false);
+        mFragmentFavorites = ListNeighbourFragment.newInstance(mFavoriteList,true);
 
         mPagerAdapter.AddFragment(mFragmentGeneral,"my neighbours");
         mPagerAdapter.AddFragment(mFragmentFavorites, "favorites");
@@ -57,9 +60,12 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    public void removeNeighbour(){
-
+    public void removeNeighbour(Neighbour neighbour){
+        mGeneralList.remove(neighbour);
+        mFavoriteList.remove(neighbour);
     }
+
+
 
     /**
      * allows to check if the tested neighbor exists in the list of favorites. If it exists, nothing should happen. If it does not exist, the method should add it to the favorites list.
@@ -99,6 +105,11 @@ public class ListNeighbourActivity extends AppCompatActivity {
         });
     }
 
+    public void initFragment(){
+        mFragmentGeneral.setNeighbours(mGeneralList);
+        mFragmentFavorites.setNeighbours(mFavoriteList);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -107,9 +118,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
                 Neighbour result = (Neighbour) data.getSerializableExtra("RESULT");
                 manageFavoriteList(result,mGeneralList,mFavoriteList);
                 Log.e("DEBUG","RESULT");
-
-                mFragmentGeneral.setNeighbours(mGeneralList);
-                mFragmentFavorites.setNeighbours(mFavoriteList);
+                initFragment();
             }
         }
     }
