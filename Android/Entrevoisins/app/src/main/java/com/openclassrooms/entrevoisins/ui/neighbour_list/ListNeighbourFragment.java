@@ -39,7 +39,6 @@ public class ListNeighbourFragment extends Fragment {
     private Boolean mViewCreated = false;
     private Boolean mFavoriteFragment;
 
-
     /**
      * Create and return a new instance
      * @return @{@link ListNeighbourFragment}
@@ -92,7 +91,6 @@ public class ListNeighbourFragment extends Fragment {
         }
     }
 
-
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
@@ -115,8 +113,8 @@ public class ListNeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         ((ListNeighbourActivity)getActivity()).mGeneralList.remove(event.neighbour);
         ((ListNeighbourActivity)getActivity()).mFavoriteList.remove(event.neighbour);
-//        ((ListNeighbourActivity)getActivity()).initFragment();
-        mRecyclerViewAdapter.notifyDataSetChanged();
+        ((ListNeighbourActivity)getActivity()).initFragment();
+       // mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Subscribe
@@ -127,9 +125,7 @@ public class ListNeighbourFragment extends Fragment {
        getActivity().startActivityForResult(intent,1);
     }
 
-    public void setNeighbours(List<Neighbour> neighbours) {
-//        mNeighbours.clear();
-//        mNeighbours.addAll(neighbours);
+    public void setNeighbours() {
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
 }
