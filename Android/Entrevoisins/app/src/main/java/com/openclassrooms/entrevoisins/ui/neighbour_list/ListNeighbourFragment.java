@@ -75,6 +75,12 @@ public class ListNeighbourFragment extends Fragment {
         return view;
     }
 
+    private void hideDeleteIcon (){
+        if (mFavoriteFragment){
+         //   (MyNeighbourRecyclerViewAdapter)
+        }
+    }
+
     /**
      * Init the List of neighbours
      */
