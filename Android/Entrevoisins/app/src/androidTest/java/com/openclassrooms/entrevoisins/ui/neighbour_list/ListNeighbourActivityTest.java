@@ -1,45 +1,65 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class ListNeighbourActivityTest {
 
-    private NeighbourApiService service;
-    ArrayList<Neighbour> mGeneralList;
-    ArrayList<Neighbour> mFavoriteList;
+    ArrayList<Neighbour> mGeneralList = new ArrayList<>();
+    ArrayList<Neighbour> mFavoriteList = new ArrayList<>();
+    Neighbour neighbourTested = new Neighbour(1, true ,"Caroline", "","","","","");
 
-    @Before
-    public void setup(){
-        service = DI.getNewInstanceApiService();
-    }
 
     @Test
     public void manageFavoriteList() {
 
-        mGeneralList = (ArrayList<Neighbour>) service.getNeighbours();
-        Neighbour neighbourTested =  mGeneralList.get(0);
+        assertTrue(mGeneralList.isEmpty());
+        assertTrue(mFavoriteList.isEmpty());
 
-        assertFalse(mGeneralList.get(0).getFavorite());
-        assertFalse(neighbourTested.getFavorite());
+        // Add neighbour to the favorite list
+        mGeneralList.add(neighbourTested);
+        assertEquals(mGeneralList.size(),1);
+        assertTrue(mFavoriteList.isEmpty());
+        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(mFavoriteList.contains(neighbourTested));
+        assertEquals(mFavoriteList.size(),1);
 
+        // Remove neighbour from the favorite list
+        neighbourTested.setFavorite(false);
+        assertTrue(mFavoriteList.contains(neighbourTested));
+        assertEquals(mFavoriteList.size(),1);
+        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(mFavoriteList.isEmpty());
+        assertTrue(mGeneralList.contains(neighbourTested));
+        assertEquals(mGeneralList.size(),1);
+
+        // Neighbour is'nt favorite and in not contained in favorite list > do nothing
+        assertTrue(mFavoriteList.isEmpty());
+        assertEquals(mFavoriteList.size(),0);
+        assertTrue(mGeneralList.contains(neighbourTested));
+        assertEquals(mGeneralList.size(),1);
+        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(mFavoriteList.isEmpty());
+        assertEquals(mFavoriteList.size(),0);
+        assertTrue(mGeneralList.contains(neighbourTested));
+        assertEquals(mGeneralList.size(),1);
+
+        // Neighbour is favorite and is contained in favorite list > do nothing
         neighbourTested.setFavorite(true);
-
-        assertEquals(mGeneralList.get(0).getFavorite(),false);
-        assertEquals(neighbourTested.getFavorite(),true);
-
-//        assertTrue(mFavoriteList.isEmpty());
-
-
-
+        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(mGeneralList.contains(neighbourTested));
+        assertEquals(mGeneralList.size(),1);
+        assertTrue(mFavoriteList.contains(neighbourTested));
+        assertEquals(mFavoriteList.size(),1);
+        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(mGeneralList.contains(neighbourTested));
+        assertEquals(mGeneralList.size(),1);
+        assertTrue(mFavoriteList.contains(neighbourTested));
+        assertEquals(mFavoriteList.size(),1);
     }
 }
