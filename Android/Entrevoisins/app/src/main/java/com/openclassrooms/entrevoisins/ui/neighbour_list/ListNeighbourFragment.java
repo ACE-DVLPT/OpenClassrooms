@@ -16,6 +16,7 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.ShowNeighbourDetailEvent;
+import com.openclassrooms.entrevoisins.events.UnfavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -75,17 +76,11 @@ public class ListNeighbourFragment extends Fragment {
         return view;
     }
 
-    private void hideDeleteIcon (){
-        if (mFavoriteFragment){
-         //   (MyNeighbourRecyclerViewAdapter)
-        }
-    }
-
     /**
      * Init the List of neighbours
      */
     private void initList() {
-        mRecyclerViewAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours);
+        mRecyclerViewAdapter = new MyNeighbourRecyclerViewAdapter(mNeighbours,mFavoriteFragment);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
@@ -117,10 +112,18 @@ public class ListNeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
+        mApiService.deleteNeighbour(event.neighbour);
         ((ListNeighbourActivity)getActivity()).mGeneralList.remove(event.neighbour);
         ((ListNeighbourActivity)getActivity()).mFavoriteList.remove(event.neighbour);
         ((ListNeighbourActivity)getActivity()).initFragment();
-       // mRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onUnfavoriteNeighbourEvent (UnfavoriteNeighbourEvent event) {
+        int index = ((ListNeighbourActivity)getActivity()).mGeneralList.indexOf(event.neighbour);
+        ((ListNeighbourActivity)getActivity()).mGeneralList.get(index).setFavorite(false);
+        ((ListNeighbourActivity)getActivity()).mFavoriteList.remove(event.neighbour);
+        ((ListNeighbourActivity)getActivity()).initFragment();
     }
 
     @Subscribe

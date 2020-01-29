@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.ShowNeighbourDetailEvent;
+import com.openclassrooms.entrevoisins.events.UnfavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,9 +28,11 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
+    private Boolean mFavoriteFragment;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, Boolean favoriteFragment) {
         mNeighbours = items;
+        mFavoriteFragment = favoriteFragment;
     }
 
     @Override
@@ -61,7 +64,15 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
             }
         });
+
+        holder.mFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().post(new UnfavoriteNeighbourEvent(neighbour));
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -75,10 +86,21 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
+        @BindView((R.id.item_list_favorite_button))
+        public ImageButton mFavoriteButton;
+
+        private void hideDeleteIcon (){
+            if (mFavoriteFragment){
+                mDeleteButton.setVisibility(View.GONE);
+            } else {
+                mFavoriteButton.setVisibility(View.GONE);
+            }
+        }
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            hideDeleteIcon();
         }
     }
 }
