@@ -48,8 +48,7 @@ public class NeighbourDetailTest {
     @Test
     public void onFavoriteButtonClicked_shouldSwitchAppearanceButton(){
         onView(withId(R.id.activityNeighbourDetailBtnFavorite))
-                .check(matches(isClickable()));
-
+                .check(matches(new Drawa));
     }
 
 }

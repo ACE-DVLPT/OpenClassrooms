@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
@@ -64,15 +65,8 @@ public class NeighboursListTest {
         onView(withId(R.id.container)).perform(swipeLeft());
 
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
-                .check(withItemCount(0));
-    }
-
-    @Test
-    public void myFavoriteList_shouldBeEmpty2(){
-        onView(withId(R.id.container)).perform(swipeLeft());
-
-        onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .check(matches(hasMinimumChildCount(0)));
+        onView(withId(R.id.container)).perform(swipeRight());
     }
 
     /**
