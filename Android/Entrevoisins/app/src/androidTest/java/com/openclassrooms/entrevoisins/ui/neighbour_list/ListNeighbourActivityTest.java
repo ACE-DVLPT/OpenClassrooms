@@ -2,6 +2,7 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,77 +11,100 @@ import static org.junit.Assert.*;
 
 public class ListNeighbourActivityTest {
 
-    ArrayList<Neighbour> mGeneralList = new ArrayList<>();
-    ArrayList<Neighbour> mFavoriteList = new ArrayList<>();
-    Neighbour neighbourTested = new Neighbour(1, true ,"Caroline", "","","","","");
+    private ArrayList<Neighbour> mGeneralList = new ArrayList<>();
+    private ArrayList<Neighbour> mFavoriteList = new ArrayList<>();
+    private Neighbour mNeighbourTested = new Neighbour(1, false ,"Caroline", "","","","","");
 
-    @Test
-    public void addNeighbourToTheFavoriteList_whenManageFavoriteListIsCalled(){
-        assertTrue(mGeneralList.isEmpty());
-        assertTrue(mFavoriteList.isEmpty());
-
-        // Add neighbour to the favorite list
-        mGeneralList.add(neighbourTested);
-        assertEquals(mGeneralList.size(),1);
-        assertTrue(mFavoriteList.isEmpty());
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
-        assertTrue(mFavoriteList.contains(neighbourTested));
-        assertEquals(mFavoriteList.size(),1);
+    @Before
+    public void ensureThatAllListsAreEmpty() {
+        mGeneralList.clear();
+        mFavoriteList.clear();
+        mNeighbourTested.setFavorite(false);
     }
 
-    @Test
-    public void removeNeighbourFromFavoriteList_whenManageFavoriteListIsCalled() {
-        // Add neighbour to the general list and manage favorite list
-        mGeneralList.add(neighbourTested);
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+    /**
+     * Should verify if the neighbour passed in parameters is contained in the list passed in parameter too
+     * The method must return a boolean
+     * @param neighbourList
+     * @param neighbour
+     * @return
+     */
+    private Boolean EnsureThatListContainNeighbour(ArrayList<Neighbour> neighbourList, Neighbour neighbour){
+        boolean result = false;
 
-        // Try if neighbourTested is contained in favorite list
-        assertTrue(mFavoriteList.contains(neighbourTested));
-        assertEquals(mFavoriteList.size(),1);
-
-        // Remove neighbour from the favorite list
-        neighbourTested.setFavorite(false);
-        assertTrue(mFavoriteList.contains(neighbourTested));
-        assertEquals(mFavoriteList.size(),1);
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
-        assertTrue(mFavoriteList.isEmpty());
-        assertTrue(mGeneralList.contains(neighbourTested));
-        assertEquals(mGeneralList.size(),1);
+        if (neighbourList.contains(neighbour) && neighbourList.size() == 1){
+            result = true;
+        }
+        return result;
     }
 
+    /**
+     * We ensure that method manageFavoriteList add the neighbour (with favorite parameter at true) in the favorite list
+     */
     @Test
-    public void checkIfTheManagerDoNothing_whenManageFavoriteListIsCalled() {
-        // Add neighbour to the general list and manage favorite list
-        neighbourTested.setFavorite(false);
-        mGeneralList.add(neighbourTested);
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
+    public void whenManageFavoriteListIsCalled_shouldAddNeighbourToTheFavoriteList(){
+        // Add neighbour to the general list; make neighbour favorite; and check favorite list is already empty
+        mGeneralList.add(mNeighbourTested);
+        mNeighbourTested.setFavorite(true);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+        assertTrue(mFavoriteList.isEmpty());
 
-        // Neighbour is'nt favorite and in not contained in favorite list > do nothing
-        assertTrue(mFavoriteList.isEmpty());
-        assertEquals(mFavoriteList.size(),0);
-        assertTrue(mGeneralList.contains(neighbourTested));
-        assertEquals(mGeneralList.size(),1);
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
-        assertTrue(mFavoriteList.isEmpty());
-        assertEquals(mFavoriteList.size(),0);
-        assertTrue(mGeneralList.contains(neighbourTested));
-        assertEquals(mGeneralList.size(),1);
+        // Add neighbour to the favorite list with calling manageFavoriteList method
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+
+        // Ensure that neighbour is added in favorite list
+        assertTrue(EnsureThatListContainNeighbour(mFavoriteList,mNeighbourTested));
     }
 
+    /**
+     * We ensure that method manageFavoriteList remove the neighbour (with favorite parameter at false) from the favorite list
+     */
     @Test
-    public void manageFavoriteList() {
+    public void whenManageFavoriteListIsCalled_shouldRemoveNeighbourFromFavoriteList() {
+        // Add neighbour to the general list; make neighbour favorite; and manage favorite list
+        // Neighbour should be contained in both list
+        mGeneralList.add(mNeighbourTested);
+        mNeighbourTested.setFavorite(true);
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+        assertTrue(EnsureThatListContainNeighbour(mFavoriteList,mNeighbourTested));
 
-        // Neighbour is favorite and is contained in favorite list > do nothing
-        neighbourTested.setFavorite(true);
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
-        assertTrue(mGeneralList.contains(neighbourTested));
-        assertEquals(mGeneralList.size(),1);
-        assertTrue(mFavoriteList.contains(neighbourTested));
-        assertEquals(mFavoriteList.size(),1);
-        ListNeighbourActivity.manageFavoriteList(neighbourTested,mGeneralList,mFavoriteList);
-        assertTrue(mGeneralList.contains(neighbourTested));
-        assertEquals(mGeneralList.size(),1);
-        assertTrue(mFavoriteList.contains(neighbourTested));
-        assertEquals(mFavoriteList.size(),1);
+        // Remove neighbour from the favorite list and call manage method
+        mNeighbourTested.setFavorite(false);
+        assertTrue(EnsureThatListContainNeighbour(mFavoriteList,mNeighbourTested));
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+
+        // Ensure that favorite neighbour list is empty
+        assertTrue(mFavoriteList.isEmpty());
+    }
+
+    /**
+     * We ensure that method manageFavoriteList do nothing when neighbour is contained in the rights lists
+     */
+    @Test
+    public void whenManageFavoriteListIsCalled_mustEnsureNothingIsDo() {
+        // Neighbour is favorite and contained in favorite list
+        mGeneralList.add(mNeighbourTested);
+        mNeighbourTested.setFavorite(true);
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+        assertTrue(EnsureThatListContainNeighbour(mFavoriteList,mNeighbourTested));
+
+        // Ensure that manager don't change anything
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+        assertTrue(EnsureThatListContainNeighbour(mFavoriteList,mNeighbourTested));
+
+        // Neighbour isn't favorite and favorite list is empty
+        mNeighbourTested.setFavorite(false);
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+        assertTrue(mFavoriteList.isEmpty());
+
+        // Ensure that manager don't change anything
+        ListNeighbourActivity.manageFavoriteList(mNeighbourTested,mGeneralList,mFavoriteList);
+        assertTrue(EnsureThatListContainNeighbour(mGeneralList,mNeighbourTested));
+        assertTrue(mFavoriteList.isEmpty());
     }
 }
