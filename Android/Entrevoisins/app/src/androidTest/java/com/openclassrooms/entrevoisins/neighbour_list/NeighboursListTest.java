@@ -2,31 +2,31 @@
 package com.openclassrooms.entrevoisins.neighbour_list;
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.NeighbourDetailActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 import com.openclassrooms.entrevoisins.utils.FavoriteViewAction;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.AllOf.allOf;
@@ -54,6 +54,10 @@ public class NeighboursListTest {
     public void setUp() {
         mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
+    }
+
+    public void addFakeNeighbourToFavoriteList(){
+
     }
 
     /**
@@ -106,6 +110,16 @@ public class NeighboursListTest {
      */
     @Test
     public void myFavoriteList_whenFavoriteButtonIsClicked_shouldRemoveItemFromFavoriteList(){
+        // Add fake neighbour to favorite list
+        Neighbour mFakeNeighbour = new Neighbour(0, true ,"", "","","","","");
+        mActivityRule.getActivity().mGeneralList.add(mFakeNeighbour);
+        mActivityRule.getActivity().manageFavoriteList(
+                mFakeNeighbour,
+                mActivityRule.getActivity().mGeneralList,
+                mActivityRule.getActivity().mFavoriteList
+        );
+
+        // Swipe left to show favorite list
         onView((withId(R.id.container))).perform(swipeLeft());
 
         try {
@@ -114,11 +128,29 @@ public class NeighboursListTest {
             e.printStackTrace();
         }
 
+        // Perform a click on the favorite icon
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new FavoriteViewAction()));
 
         // Ensure that recyclerView is empty
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .check(withItemCount(0));
+    }
+
+    /**
+     * When neighbour is clicked on main activity, neighbour detail activity must be displayed
+     */
+    @Test
+    public void onNeighbourClicked_shouldStartNeighbourDetailActivity(){
+        Intents.init();
+
+        // Perform click on second item
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed()))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click() ));
+
+        // Ensure that the correct activity has started
+        intended(hasComponent(NeighbourDetailActivity.class.getName()));
+
+        Intents.release();
     }
 }

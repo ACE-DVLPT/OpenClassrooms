@@ -1,12 +1,11 @@
-package com.openclassrooms.entrevoisins.neighbour_list;
+package com.openclassrooms.entrevoisins.neighbour_detail;
 
-
-import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.content.Intent;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
+import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.NeighbourDetailActivity;
 import com.openclassrooms.entrevoisins.utils.EspressoTestsMatchers;
 
@@ -18,34 +17,28 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.core.AllOf.allOf;
+import static com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourFragment.KEY_NEIGHBOUR_DETAIL;
 
 /**
- * Test class for Neighbour Detail
+ * Test class for Neighbour Detail Activity
  */
 @RunWith(AndroidJUnit4.class)
-public class NeighbourDetailTest {
+public class NeighbourDetailActivityTest {
 
     @Rule
-    public IntentsTestRule<ListNeighbourActivity> mListNeighbourActivityTestRule =
-            new IntentsTestRule<>(ListNeighbourActivity.class);
-
-    @Before
-    public void clickOnNeighbour(){
-        onView(allOf(withId(R.id.list_neighbours),isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click() ));
-    }
+    public ActivityTestRule<NeighbourDetailActivity> mActivityRule =
+            new ActivityTestRule(NeighbourDetailActivity.class,true,false);
 
     /**
-     * When neighbour is clicked on main activity, neighbour detail activity must be displayed
+     * Start NeighbourDetailActivity with fake neighbour
      */
-    @Test
-    public void onNeighbourClicked_shouldShowNeighbourDetails(){
-        intended(hasComponent(NeighbourDetailActivity.class.getName()));
+    @Before
+        public void setUp(){
+        Neighbour mFakeNeighbour = new Neighbour(0, false ,"", "","","","","");
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.putExtra(KEY_NEIGHBOUR_DETAIL,mFakeNeighbour);
+        mActivityRule.launchActivity(intent);
     }
 
     /**
@@ -68,11 +61,6 @@ public class NeighbourDetailTest {
                 .perform(click());
         onView(withId(R.id.activityNeighbourDetailBtnFavorite))
                 .check(matches(EspressoTestsMatchers.withDrawable(R.drawable.ic_star_border_white_24dp)));
-    }
-
-    @Test
-    public void onBackButtonClicked_shouldBackToTheMainActivity(){
-
     }
 
 }

@@ -31,8 +31,8 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
-    ArrayList<Neighbour> mGeneralList;
-    ArrayList<Neighbour> mFavoriteList;
+    public ArrayList<Neighbour> mGeneralList;
+    public ArrayList<Neighbour> mFavoriteList;
 
     ListNeighbourFragment mFragmentGeneral;
     ListNeighbourFragment mFragmentFavorites;
