@@ -6,8 +6,6 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.text.TextWatcher;
-import android.widget.TextView;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
@@ -40,7 +38,7 @@ import static android.support.test.espresso.action.ViewActions.swipeLeft;
  * Test class for list of neighbours
  */
 @RunWith(AndroidJUnit4.class)
-public class ListNeighbourActivityTest {
+public class UITestListNeighbourActivity {
 
     // This is fixed
     private static int ITEMS_COUNT = 12;

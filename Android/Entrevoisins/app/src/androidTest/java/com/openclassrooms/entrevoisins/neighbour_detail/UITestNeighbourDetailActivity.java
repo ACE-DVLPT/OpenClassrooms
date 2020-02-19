@@ -24,7 +24,7 @@ import static com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourFra
  * Test class for Neighbour Detail Activity
  */
 @RunWith(AndroidJUnit4.class)
-public class NeighbourDetailActivityTest {
+public class UITestNeighbourDetailActivity {
 
     @Rule
     public ActivityTestRule<NeighbourDetailActivity> mActivityRule =

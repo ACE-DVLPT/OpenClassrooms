@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
@@ -107,7 +106,6 @@ public class ListNeighbourActivity extends AppCompatActivity {
             if (resultCode == NeighbourDetailActivity.RESULT_OK){
                 Neighbour result = (Neighbour) data.getSerializableExtra("RESULT");
                 manageFavoriteList(result,mGeneralList,mFavoriteList);
-                Log.e("DEBUG","RESULT");
                 initFragment();
             }
         }

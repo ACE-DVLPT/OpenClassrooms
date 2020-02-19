@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class ListNeighbourActivityTest {
+public class UnitTestListNeighbourActivity {
 
     private ArrayList<Neighbour> mGeneralList = new ArrayList<>();
     private ArrayList<Neighbour> mFavoriteList = new ArrayList<>();
