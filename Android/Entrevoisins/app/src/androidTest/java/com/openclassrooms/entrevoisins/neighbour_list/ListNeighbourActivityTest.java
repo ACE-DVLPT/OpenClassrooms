@@ -6,6 +6,8 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.text.TextWatcher;
+import android.widget.TextView;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
@@ -28,18 +30,17 @@ import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 
-
-
 /**
  * Test class for list of neighbours
  */
 @RunWith(AndroidJUnit4.class)
-public class NeighboursListTest {
+public class ListNeighbourActivityTest {
 
     // This is fixed
     private static int ITEMS_COUNT = 12;
@@ -54,10 +55,6 @@ public class NeighboursListTest {
     public void setUp() {
         mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
-    }
-
-    public void addFakeNeighbourToFavoriteList(){
-
     }
 
     /**
@@ -132,7 +129,7 @@ public class NeighboursListTest {
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new FavoriteViewAction()));
 
-        // Ensure that recyclerView is empty
+        // Ensure that the recyclerView is empty
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .check(withItemCount(0));
     }
@@ -141,10 +138,10 @@ public class NeighboursListTest {
      * When neighbour is clicked on main activity, neighbour detail activity must be displayed
      */
     @Test
-    public void onNeighbourClicked_shouldStartNeighbourDetailActivity(){
+    public void onNeighbourClick_shouldStartNeighbourDetailActivity(){
         Intents.init();
 
-        // Perform click on second item
+        // Perform click on the second item
         onView(allOf(withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click() ));
 
@@ -152,5 +149,20 @@ public class NeighboursListTest {
         intended(hasComponent(NeighbourDetailActivity.class.getName()));
 
         Intents.release();
+    }
+
+    /**
+     * When NeighbourDetailActivity is started, we want to verify if the showed name is the expected neighbour name
+     */
+    @Test
+    public void onNeighbourDetailActivityStarted_shouldDisplayExpectedNameOnTextView(){
+        String neighbourNameChecked = "Jack";
+
+        // Perform click on the second item "Jack"
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed()))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click() ));
+
+        onView(withId(R.id.activityNeighbourDetailTxtTitle))
+                .check(matches(withText(neighbourNameChecked)));
     }
 }

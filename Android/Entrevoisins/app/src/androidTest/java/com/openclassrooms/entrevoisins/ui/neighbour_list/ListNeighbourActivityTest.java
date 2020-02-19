@@ -13,7 +13,7 @@ public class ListNeighbourActivityTest {
 
     private ArrayList<Neighbour> mGeneralList = new ArrayList<>();
     private ArrayList<Neighbour> mFavoriteList = new ArrayList<>();
-    private Neighbour mNeighbourTested = new Neighbour(1, false ,"Caroline", "","","","","");
+    private Neighbour mNeighbourTested = new Neighbour(0, false ,"", "","","","","");
 
     @Before
     public void ensureThatAllListsAreEmpty() {
