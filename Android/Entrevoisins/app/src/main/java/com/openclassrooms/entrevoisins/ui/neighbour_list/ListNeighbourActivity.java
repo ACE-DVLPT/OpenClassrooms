@@ -45,6 +45,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
         mGeneralList = new ArrayList<>(DI.getNeighbourApiService().getNeighbours());
         mFavoriteList = new ArrayList<>();
+        getFavoriteNeighbours(mGeneralList, mGeneralList, mFavoriteList);
 
         mFragmentGeneral = ListNeighbourFragment.newInstance(mGeneralList,false);
         mFragmentFavorites = ListNeighbourFragment.newInstance(mFavoriteList,true);
@@ -56,6 +57,20 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    /**
+     * allows to get favorite neighbours by testing a source list and applying manageFavoriteList method
+     * @param testedList is the list of neighbours to be tested
+     * @param generalList list used in the manageFavoriteList method
+     * @param favoriteList list used in the manageFavoriteList method
+     */
+    public static void getFavoriteNeighbours (ArrayList<Neighbour> testedList, ArrayList<Neighbour> generalList, ArrayList<Neighbour> favoriteList ){
+        for (int i = 0; i<testedList.size(); i++) {
+            Neighbour neighbour;
+            neighbour = testedList.get(i);
+            manageFavoriteList(neighbour, generalList, favoriteList);
+        }
+    }
+    
     /**
      * allows to check if the tested neighbor exists in the list of favorites. If it exists, nothing should happen. If it does not exist, the method should add it to the favorites list.
      * @param neighbour to check

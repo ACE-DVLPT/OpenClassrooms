@@ -41,7 +41,7 @@ import static android.support.test.espresso.action.ViewActions.swipeLeft;
 public class UITestListNeighbourActivity {
 
     // This is fixed
-    private static int ITEMS_COUNT = 12;
+    private static int ITEMS_COUNT;
 
     private ListNeighbourActivity mActivity;
 
@@ -56,7 +56,7 @@ public class UITestListNeighbourActivity {
     }
 
     /**
-     * We ensure that our recyclerview is displaying at least on item
+     * We ensure that our recyclerView is displaying at least on item
      */
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
@@ -65,11 +65,8 @@ public class UITestListNeighbourActivity {
                 .check(matches(hasMinimumChildCount(1)));
     }
 
-    /**
-     * We ensure that the recyclerView with the favorite list is empty
-     */
     @Test
-    public void myFavoriteList_shouldBeEmpty() {
+    public void myFavoriteNeighboursList_shouldNotBeEmpty(){
         // Swipe left to show favorite list
         onView((withId(R.id.container))).perform(swipeLeft());
 
@@ -79,9 +76,9 @@ public class UITestListNeighbourActivity {
             e.printStackTrace();
         }
 
-        // Ensure that recyclerView is empty
+        // Ensure that favorite list contain 2 items
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
-                .check(withItemCount(0));
+                .check(matches(hasMinimumChildCount(2)));
     }
 
     /**
@@ -89,7 +86,9 @@ public class UITestListNeighbourActivity {
      */
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
-        // Given : We remove the element at position 2
+        ITEMS_COUNT = mActivityRule.getActivity().mGeneralList.size();
+
+                // Given : We remove the element at position 2
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
@@ -123,13 +122,15 @@ public class UITestListNeighbourActivity {
             e.printStackTrace();
         }
 
+        ITEMS_COUNT = mActivityRule.getActivity().mFavoriteList.size();
+
         // Perform a click on the favorite icon
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new FavoriteViewAction()));
 
         // Ensure that the recyclerView is empty
         onView(allOf(ViewMatchers.withId(R.id.list_neighbours),isDisplayed()))
-                .check(withItemCount(0));
+                .check(withItemCount(ITEMS_COUNT-1));
     }
 
     /**

@@ -10,10 +10,10 @@ public abstract class DummyNeighbourGenerator {
 
     public static List<Neighbour> DUMMY_NEIGHBOURS = Arrays.asList(
             new Neighbour(1, false ,"Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d","Saint Pierre du mont à 5km","+33 6 86 57 90 14","www.facebook.fr/caroline","Bonjour !Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !J'aime les jeux de cartes tels la belote et le tarot.."),
-            new Neighbour(2, false ,"Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e","4 rue saint Antonin","+33 6 20 15 75 78","www.facebook.fr/Jack",""),
+            new Neighbour(2, true ,"Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e","4 rue saint Antonin","+33 6 20 15 75 78","www.facebook.fr/Jack",""),
             new Neighbour(3, false ,"Chloé", "http://i.pravatar.cc/150?u=a042581f4e29026704f","40 rue Pradal","+33 6 65 48 78 23","www.facebook.fr/Chloé",""),
             new Neighbour(4, false ,"Vincent", "http://i.pravatar.cc/150?u=a042581f4e29026704a","54 rue du Canon d'Arcale","+33 6 65 48 23 75","www.facebook.fr/Vincent",""),
-            new Neighbour(5, false ,"Elodie", "http://i.pravatar.cc/150?u=a042581f4e29026704b","45  rue des Fontaines","+33 6 48 23 54 78","www.facebook.fr/Elodie",""),
+            new Neighbour(5, true ,"Elodie", "http://i.pravatar.cc/150?u=a042581f4e29026704b","45  rue des Fontaines","+33 6 48 23 54 78","www.facebook.fr/Elodie",""),
             new Neighbour(6, false ,"Sylvain", "http://i.pravatar.cc/150?u=a042581f4e29026704c","55 rue de la République","+33 7 84 62 15 78","www.facebook.fr/Sylvain",""),
             new Neighbour(7, false ,"Laetitia", "http://i.pravatar.cc/150?u=a042581f4e29026703d","12 rue du Tchad","+33 6 95 48 75 36","www.facebook.fr/Laetitia",""),
             new Neighbour(8, false ,"Dan", "http://i.pravatar.cc/150?u=a042581f4e29026703b","5 rue de la Gravette","+33 7 18 56 48 56","www.facebook.fr/Dan",""),

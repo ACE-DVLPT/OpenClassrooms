@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.junit.Before;
@@ -20,6 +21,16 @@ public class UnitTestListNeighbourActivity {
         mGeneralList.clear();
         mFavoriteList.clear();
         mNeighbourTested.setFavorite(false);
+    }
+
+    /**
+     * we ensure that getFavoriteNeighbours method works correctly
+     */
+    @Test
+    public void whenGetFavoriteNeighboursIsCalled_allFavoriteNeighboursInTestedListMustBeAddedInFavoriteList(){
+        ArrayList<Neighbour> mGeneralList = (ArrayList<Neighbour>) DI.getNeighbourApiService().getNeighbours();
+        ListNeighbourActivity.getFavoriteNeighbours(mGeneralList,mGeneralList,mFavoriteList);
+        assertEquals(2, mFavoriteList.size());
     }
 
     /**
